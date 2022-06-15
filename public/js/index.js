@@ -39,5 +39,4 @@ const askForDetails = (message) => {
 const updateNameTag = (user) => {
 	let nametag = document.getElementById("nametag-txt");
 	nametag.innerHTML = user;
-	document.getElementById("nametag").style.display = "flex";
 };
