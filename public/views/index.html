@@ -1,0 +1,43 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home | Chatspot</title>
+		<link rel="stylesheet" href="/public/styles/index.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="icon" type="image/png" href="/public/images/send.png" >
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+			rel="stylesheet"
+		/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/public/js/index.js"></script>
+        <script src="/public/js/messages.js"></script>
+        <script src="/public/js/utils.js"></script>
+        <script src="/public/js/constants.js"></script>
+        <script src="/public/js/sounds.js"></script>
+	</head>
+	<body>
+		<nav class="navbar">
+			<h3>Welcome to Chatspot</h3>
+		</nav>
+
+        <div class="messagesContainer">
+            <div id="messagesList"></div>
+            <div class="inputContainer">
+                <textarea type="text" id="messageBox" onkeypress="enterEvent()"></textarea>
+                <div onclick="sendMessage()" class="send-img">
+                    <img src="/public/images/send.png" alt="" height="30px">
+                </div>
+            </div>
+        </div>
+
+        <div id="nametag">
+            <img src="/public/images/user.png" alt="" id="nametag-img">
+            <div id="nametag-txt"></div>
+        </div>
+	</body>
+</html>
