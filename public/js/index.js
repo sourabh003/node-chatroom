@@ -11,10 +11,12 @@ socket.on('emit', (data) => {
 
 socket.on("usersUpdated", (data) => {
     let localUser = getData(USER)
-    const {status, user} = data;
+    const {status, user, activeUsers} = data;
     const {id, name} = user;
-    if(status === "joined"){
-        activeUsers[id] = user;
+    toast(`'${localUser.id === id ? "You" : name}' ${status} the chat`, status === "joined" ? 'success' : "error")
+    Object.keys(activeUsers).map(key => {
+        let user = activeUsers[key]
+        const {name, id} = user;
         let content = `
             <div id="${id}" class="userItem">
                 <img src="/public/images/user.png" width="20px" height="20px" alt="">
@@ -23,10 +25,7 @@ socket.on("usersUpdated", (data) => {
             </div>
         `;
         document.getElementById("activeUsersList").innerHTML += content;
-    } else {
-        delete activeUsers[id]
-    }
-    toast(`'${name}' ${status} the chat`, status === "joined" ? 'success' : "error")
+    })
 })
 
 // Functions

@@ -9,17 +9,20 @@ module.exports = (io) => {
             activeUsers[socket.id] = data;
             io.emit("usersUpdated", {
                 status: "joined",
-                user: activeUsers[socket.id]
+                user: activeUsers[socket.id], 
+                activeUsers
             })
         })
 
         // On disconnect
         socket.on("disconnect", () => {
+            let user = activeUsers[socket.id]
+            delete activeUsers[socket.id]
             io.emit("usersUpdated", {
                 status: "left",
-                user: activeUsers[socket.id]
+                user, 
+                activeUsers
             })
-            delete activeUsers[socket.id]
         });
 
         socket.on("message", (data) => {
