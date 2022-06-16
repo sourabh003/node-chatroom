@@ -12,6 +12,7 @@ socket.on("usersUpdated", (data) => {
     const {status, user, activeUsers} = data;
     const {id, name} = user;
     toast(`'${localUser.id === id ? "You" : name}' ${status} the chat`, status === "joined" ? 'success' : "error")
+    document.getElementById("activeUsersList").innerHTML = "";
     Object.keys(activeUsers).map(key => {
         let user = activeUsers[key]
         const {name, id} = user;
