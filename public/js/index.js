@@ -7,6 +7,25 @@ socket.on('emit', (data) => {
     addMessage(data.user, data.time, data.message)
 })
 
+socket.on("usersUpdated", (data) => {
+    let users = Object.keys(data)
+    let localUser = getData(USER)
+    if(users.length !== 0){
+        document.getElementById("activeUsersList").innerHTML = "";
+        users.map(key => {
+            let user = data[key]
+            let content = `
+                <div class="userItem">
+                    <img src="/public/images/user.png" width="20px" height="20px" alt="">
+                    &nbsp;&nbsp;
+                    <h5>${user.name} ${user.id === localUser.id ? '(You)' : ""}</h5>
+                </div>
+            `;
+            document.getElementById("activeUsersList").innerHTML += content;
+        })
+    }
+})
+
 // Functions
 function onConnected() {
 	let user = getUser();
@@ -16,6 +35,7 @@ function onConnected() {
 		askForDetails("Enter your name");
 	}
     let updatedUser = getUser()
+    socket.emit("userConnected", updatedUser)
     if(!messageColors.hasOwnProperty(updatedUser.id)){
         messageColors[updatedUser.id] = generateColor()
     }
@@ -40,3 +60,11 @@ const updateNameTag = (user) => {
 	let nametag = document.getElementById("nametag-txt");
 	nametag.innerHTML = user;
 };
+
+const openUsersList = () => {
+    document.getElementById("usersListDialog").open = true;
+}
+
+const closeUserListDialog = () => {
+    document.getElementById("usersListDialog").open = false;
+}

@@ -13,6 +13,7 @@
 			rel="stylesheet"
 		/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="/socket.io/socket.io.js"></script>
         <script src="/public/js/index.js"></script>
         <script src="/public/js/messages.js"></script>
@@ -23,11 +24,25 @@
 	<body>
 		<nav class="navbar">
 			<h3>Welcome to Chatspot</h3>
-            <div class="profile">
-                <img src="/public/images/user.png" alt="" id="nametag-img">
-                <div id="nametag-txt"></div>
+            <div class="left-section">
+                <div class="profile">
+                    <img src="/public/images/user.png" alt="" id="nametag-img">
+                    <div id="nametag-txt"></div>
+                </div>
+                <img src="/public/images/users.png" alt="" class="all-users-img" onclick="openUsersList()">
             </div>
 		</nav>
+
+        <dialog id="usersListDialog">
+            <div class="userListHeader">
+                <h3>Active Users</h3>
+                <div id="dialog-close" onclick="closeUserListDialog()">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <hr>
+            <div id="activeUsersList"></div>
+        </dialog>
 
         <div class="messagesContainer">
             <div id="messagesList"></div>

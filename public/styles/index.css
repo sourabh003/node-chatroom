@@ -83,6 +83,48 @@ textarea:active{
     background-color:#282828;
 }
 
+.left-section{
+    display: flex;
+    align-items: center;
+}
+
+.all-users-img{
+    margin-left: 10px;
+    height: 30px;
+    border-radius: 10px;
+    background: white;
+    padding: 5px;
+    cursor: pointer;
+    width: 30px;
+}
+
+#usersListDialog{
+    position: absolute;
+    z-index: 999;
+    width: 200px;
+    border-radius: 10px;
+	box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+#dialog-close{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.userListHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userItem{
+    display: flex;
+    margin-top: 5px;
+    align-items: center;
+}
+
 @media only screen and (max-width: 500px){
     .send-img{
         height: 25px;
@@ -107,12 +149,26 @@ textarea:active{
         cursor: pointer;
         border-radius: 50px;
     }
+
+    #nametag-img{
+        width: 30px;
+        margin-right: 0px !important;
+        height: 30px;
+    }
+
+    #nametag-txt{
+        display: none;
+    }
 }
 
 #nametag-img{
     width: 30px;
     margin-right: 10px;
     height: 30px;
+}
+
+.menu-btn{
+    cursor: pointer;
 }
 
 .message{
@@ -130,3 +186,30 @@ textarea:active{
 .message-header{
     display: flex;
 }
+
+/* dropdown */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: fit-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {display: inline;}
