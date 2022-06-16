@@ -214,8 +214,7 @@ textarea:active{
 
 .dropdown:hover .dropdown-content {display: inline;}
 
-.footer{
-    margin-top: 20px;
+.customFooter{
     padding: 10px;
     align-items: center;
     color: white;
@@ -224,6 +223,7 @@ textarea:active{
     background:#282828;
 }
 
-.footer a{
+.customFooter a{
     color: aquamarine;
 }
+

@@ -7,13 +7,19 @@ module.exports = (io) => {
 
         socket.on("userConnected", (data) => {
             activeUsers[socket.id] = data;
-            io.emit("usersUpdated", activeUsers)
+            io.emit("usersUpdated", {
+                status: "joined",
+                user: activeUsers[socket.id]
+            })
         })
 
         // On disconnect
         socket.on("disconnect", () => {
+            io.emit("usersUpdated", {
+                status: "left",
+                user: activeUsers[socket.id]
+            })
             delete activeUsers[socket.id]
-            io.emit("usersUpdated", activeUsers)
         });
 
         socket.on("message", (data) => {

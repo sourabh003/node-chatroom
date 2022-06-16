@@ -1,5 +1,7 @@
 const socket = io();
 
+let activeUsers = {}
+
 // Socket Events
 socket.on("connect", onConnected);
 
@@ -8,22 +10,23 @@ socket.on('emit', (data) => {
 })
 
 socket.on("usersUpdated", (data) => {
-    let users = Object.keys(data)
     let localUser = getData(USER)
-    if(users.length !== 0){
-        document.getElementById("activeUsersList").innerHTML = "";
-        users.map(key => {
-            let user = data[key]
-            let content = `
-                <div class="userItem">
-                    <img src="/public/images/user.png" width="20px" height="20px" alt="">
-                    &nbsp;&nbsp;
-                    <h5>${user.name} ${user.id === localUser.id ? '(You)' : ""}</h5>
-                </div>
-            `;
-            document.getElementById("activeUsersList").innerHTML += content;
-        })
+    const {status, user} = data;
+    const {id, name} = user;
+    if(status === "joined"){
+        activeUsers[id] = user;
+        let content = `
+            <div id="${id}" class="userItem">
+                <img src="/public/images/user.png" width="20px" height="20px" alt="">
+                &nbsp;&nbsp;
+                <h5>${name} ${id === localUser.id ? '(You)' : ""}</h5>
+            </div>
+        `;
+        document.getElementById("activeUsersList").innerHTML += content;
+    } else {
+        delete activeUsers[id]
     }
+    toast(`'${name}' ${status} the chat`, status === "joined" ? 'success' : "error")
 })
 
 // Functions

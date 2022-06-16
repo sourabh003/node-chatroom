@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Home | Chatspot</title>
 		<link rel="stylesheet" href="/public/styles/index.css" />
+		<link rel="stylesheet" href="/public/styles/toaster.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="icon" type="image/png" href="/public/images/send.png" >
@@ -16,14 +17,19 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="/socket.io/socket.io.js"></script>
         <script src="/public/js/index.js"></script>
+        <script src="/public/js/toaster.js"></script>
         <script src="/public/js/messages.js"></script>
         <script src="/public/js/utils.js"></script>
         <script src="/public/js/constants.js"></script>
         <script src="/public/js/sounds.js"></script>
 	</head>
 	<body>
+        <center>
+            <div id="toastContainer"></div>
+        </center>
+        
 		<nav class="navbar">
-			<h3>Welcome to Chatspot</h3>
+			<h3 onclick="toast()">Welcome to Chatspot</h3>
             <div class="left-section">
                 <div class="profile">
                     <img src="/public/images/user.png" alt="" id="nametag-img">
@@ -32,6 +38,7 @@
                 <img src="/public/images/users.png" alt="" class="all-users-img" onclick="openUsersList()">
             </div>
 		</nav>
+
 
         <dialog id="usersListDialog">
             <div class="userListHeader">
@@ -47,15 +54,16 @@
         <div class="messagesContainer">
             <div id="messagesList"></div>
             <div class="inputContainer">
-                <textarea type="text" id="messageBox" onkeypress="enterEvent()"></textarea>
-                <div onclick="sendMessage()" class="send-img">
+                <textarea placeholder="Type Message Here..." type="text" id="messageBox" onkeypress="enterEvent()"></textarea>
+                <div onclick="toast('asdfasdfsd')" class="send-img">
+                <!-- <div onclick="sendMessage()" class="send-img"> -->
                     <img src="/public/images/send.png" alt="" height="30px">
                 </div>
             </div>
+            <div class="customFooter">
+                <h6>Created by Sourabh</h6>&nbsp;&bull;&nbsp;<h6><a href="https://github.com/sourabh003/node-chatroom" target="_blank">See on Github</a></h6>
+            </div>
         </div>
 
-        <footer class="footer">
-            <h6>Created by Sourabh</h6>&nbsp;&bull;&nbsp;<h6><a href="https://github.com/sourabh003/node-chatroom" target="_blank">See on Github</a></h6>
-        </footer>
 	</body>
 </html>

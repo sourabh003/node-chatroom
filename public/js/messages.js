@@ -19,7 +19,7 @@ const enterEvent = () => {
 
 const sendMessage = () => {
     let messageBox = document.getElementById("messageBox")
-    if(!messageBox.value){
+    if(!messageBox.value.trim()){
         return 
     }
     let user = getData(USER)
