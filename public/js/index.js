@@ -1,7 +1,5 @@
 const socket = io();
 
-let activeUsers = {}
-
 // Socket Events
 socket.on("connect", onConnected);
 
