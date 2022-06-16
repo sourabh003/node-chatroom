@@ -213,3 +213,17 @@ textarea:active{
 }
 
 .dropdown:hover .dropdown-content {display: inline;}
+
+.footer{
+    margin-top: 20px;
+    padding: 10px;
+    align-items: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    background:#282828;
+}
+
+.footer a{
+    color: aquamarine;
+}
