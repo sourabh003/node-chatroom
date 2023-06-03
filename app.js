@@ -4,7 +4,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 // Middlewares
-app.use(express.static(__dirname));
+app.use(express.static("."));
 
 // Routes
 app.get('/', (req, res) => {
