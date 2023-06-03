@@ -8,58 +8,67 @@ socket.on('emit', (data) => {
 })
 
 socket.on("usersUpdated", (data) => {
+    const activeUserList = document.getElementById("activeUsersList");
     let localUser = getData(USER)
-    const {status, user, activeUsers} = data;
-    const {id, name} = user;
-    toast(`'${localUser.id === id ? "You" : name}' ${status} the chat`, status === "joined" ? 'success' : "error")
-    document.getElementById("activeUsersList").innerHTML = "";
-    Object.keys(activeUsers).map(key => {
-        let user = activeUsers[key]
-        const {name, id} = user;
-        let content = `
-            <div id="${id}" class="userItem">
-                <img src="/public/images/user.png" width="20px" height="20px" alt="">
-                &nbsp;&nbsp;
-                <h5>${name} ${id === localUser.id ? '(You)' : ""}</h5>
-            </div>
-        `;
-        document.getElementById("activeUsersList").innerHTML += content;
+    const { status, user, activeUsers } = data;
+    const { id, name } = user;
+    let color = status === 'joined' ? "lightgreen" : "red"
+    let text = `<p style='color:${color}'><span style="color: yellow">[${getTime()}]</span>: ${localUser.id === id ? "You" : name} ${status} the chat</p>`
+    activeUserList.innerHTML += text;
+    activeUserList.scrollTo({
+        top: activeUserList.scrollHeight,
+        behavior: 'smooth',
     })
+
+    // Object.keys(activeUsers).map(key => {
+    //     let user = activeUsers[key]
+    //     const {name, id} = user;
+    //     let content = `
+    //         <div id="${id}" class="userItem">
+    //             <img src="/public/images/user.png" width="20px" height="20px" alt="">
+    //             &nbsp;&nbsp;
+    //             <h5>${name} ${id === localUser.id ? '(You)' : ""}</h5>
+    //         </div>
+    //     `;
+    //     document.getElementById("activeUsersList").innerHTML += content;
+    // })
 })
 
 // Functions
 function onConnected() {
-	let user = getUser();
-	if (user) {
-		updateNameTag(user.name);
-	} else {
-		askForDetails("Enter your name");
-	}
+    let user = getUser();
+    if (user) {
+        updateNameTag(user.name);
+    } else {
+        askForDetails("Enter your name");
+    }
     let updatedUser = getUser()
     socket.emit("userConnected", updatedUser)
-    if(!messageColors.hasOwnProperty(updatedUser.id)){
+    if (!messageColors.hasOwnProperty(updatedUser.id)) {
         messageColors[updatedUser.id] = generateColor()
     }
 }
 
 const getUser = () => {
-	return getData(USER);
+    return getData(USER);
 };
 
 const askForDetails = (message) => {
     let id = 'id' + (new Date()).getTime();
-	let name = prompt(message);
-	if (name && name.length > 3) {
-		setData(USER, { name, id });
-		updateNameTag(name);
-		return;
-	}
-	askForDetails("Name must have more than 3 characters!");
+    let name = prompt(message);
+    if (name && name.length > 3) {
+        setData(USER, { name, id });
+        updateNameTag(name);
+        return;
+    }
+    askForDetails("Name must have more than 3 characters!");
 };
 
 const updateNameTag = (user) => {
-	let nametag = document.getElementById("nametag-txt");
-	nametag.innerHTML = user;
+    let nametag = document.getElementsByClassName("nametag-txt")[0];
+    let mobilenametag = document.getElementsByClassName("mobile-name-tag")[0];
+    nametag.innerHTML = user;
+    mobilenametag.innerHTML = ` <img src="/public/images/user.png" alt="" class="user-img"> ${user}` ;
 };
 
 const openUsersList = () => {
