@@ -19,6 +19,7 @@ socket.on("usersUpdated", (data) => {
         top: activeUserList.scrollHeight,
         behavior: 'smooth',
     })
+    new Audio("/public/sounds/joined-sound.mp3").play()
 
     // Object.keys(activeUsers).map(key => {
     //     let user = activeUsers[key]

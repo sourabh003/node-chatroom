@@ -62,6 +62,6 @@ const addMessage = (user, time, content) => {
 }
 
 const playIncomingSound = () => {
-    let audio = new Audio("/public/sounds/ping.mp3")
+    let audio = new Audio("/public/sounds/incoming-sound.mp3")
     audio.play()
 }

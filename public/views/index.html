@@ -1,72 +1,98 @@
 <html lang="en">
+	<head>
+		<meta
+			property="og:url"
+			content="https://chatroom.vercel.app"
+		/>
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="Chatroom" />
+		<meta
+			property="og:description"
+			content="A Secure free chatroom for all your secret communications."
+		/>
+		<meta
+			property="og:image"
+			content="https://chatroom.vercel.app/images/logo.png"
+		/>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Home | Chatspot</title>
+		<link rel="stylesheet" href="/public/styles/index.css" />
+		<link rel="stylesheet" href="/public/styles/toaster.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="icon" type="image/png" href="/public/images/logo.png" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/public/js/index.js"></script>
+		<script src="/public/js/toaster.js"></script>
+		<script src="/public/js/messages.js"></script>
+		<script src="/public/js/utils.js"></script>
+		<script src="/public/js/constants.js"></script>
+		<script src="/public/js/sounds.js"></script>
+	</head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Home | Chatspot</title>
-    <link rel="stylesheet" href="/public/styles/index.css" />
-    <link rel="stylesheet" href="/public/styles/toaster.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" type="image/png" href="/public/images/send.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/public/js/index.js"></script>
-    <script src="/public/js/toaster.js"></script>
-    <script src="/public/js/messages.js"></script>
-    <script src="/public/js/utils.js"></script>
-    <script src="/public/js/constants.js"></script>
-    <script src="/public/js/sounds.js"></script>
-</head>
+	<body>
+		<center>
+			<div id="toastContainer"></div>
+		</center>
 
-<body>
-    <center>
-        <div id="toastContainer"></div>
-    </center>
+		<div class="main">
+			<nav class="navbar">
+				<div class="navbar-view">
+					<h3 onclick="toast()">Welcome to Chatspot</h3>
+					<div class="profile">
+						<img src="/public/images/user.png" alt="" id="nametag-img" />
+						<div class="nametag-txt"></div>
+					</div>
+				</div>
+			</nav>
 
-    <div class="main">
-        <nav class="navbar">
-            <div class="navbar-view">
-                <h3 onclick="toast()">Welcome to Chatspot</h3>
-                <div class="profile">
-                    <img src="/public/images/user.png" alt="" id="nametag-img">
-                    <div class="nametag-txt"></div>
-                </div>
-            </div>
-        </nav>
+			<div class="view">
+				<div class="mobile-name-tag"></div>
+				<div class="messagesContainer">
+					<div id="messagesList"></div>
+					<div class="inputContainer">
+						<input
+							placeholder="Type Message Here..."
+							type="text"
+							id="messageBox"
+							onkeypress="enterEvent()"
+						/>
+						<div onclick="sendMessage()" class="send-img">
+							<img src="/public/images/send.png" alt="" height="30px" />
+						</div>
+					</div>
+				</div>
+				<div class="usersListContainer">
+					<div class="usersList" id="activeUsersList"></div>
+				</div>
+			</div>
 
-
-        <div class="view">
-            <div class="mobile-name-tag">
-
-            </div>
-            <div class="messagesContainer">
-                <div id="messagesList">
-
-                </div>
-                <div class="inputContainer">
-                    <input placeholder="Type Message Here..." type="text" id="messageBox" onkeypress="enterEvent()" />
-                    <div onclick="sendMessage()" class="send-img">
-                        <img src="/public/images/send.png" alt="" height="30px">
-                    </div>
-                </div>
-            </div>
-            <div class="usersListContainer">
-                <div class="usersList" id="activeUsersList"></div>
-            </div>
-        </div>
-
-        <div class="customFooter">
-            <h6>Created by Sourabh</h6>&nbsp;&bull;&nbsp;<h6><a href="https://github.com/sourabh003/node-chatroom"
-                    target="_blank">See on Github</a></h6>
-        </div>
-    </div>
-
-</body>
-
+			<div class="customFooter">
+				<h6>Created by Sourabh</h6>
+				&nbsp;&bull;&nbsp;
+				<h6>
+					<a href="https://github.com/sourabh003/node-chatroom" target="_blank"
+						>See on Github</a
+					>
+				</h6>
+			</div>
+		</div>
+	</body>
 </html>
